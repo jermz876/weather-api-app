@@ -1,15 +1,19 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const FormSearch = () => {
     const [cityInput, setCityInput] = useState("");
     const [weatherData, setWeatherData] = useState({});
 
-    const handleEvent = (e: { preventDefault: () => void }) => {
+    const handleEvent = (e) => {
         e.preventDefault();
     };
+
+    useEffect(() => {
+        getWeatherData();
+    }, []);
 
     const getWeatherData = async () => {
         try {
@@ -36,10 +40,10 @@ const FormSearch = () => {
                 </button>
             </form>
             <div className="results">
-                <h3>{weatherData.name} </h3>
-                {weatherData.main && <p>Currently feels like {weatherData.main.temp.toFixed(0)}&deg;F</p>}
-                {weatherData.weather && (
-                    <img src={"http://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@4x.png"} alt="weather image" height={100} width={100} />
+                <h3>{weatherData?.name} </h3>
+                {weatherData?.main && <p>Currently feels like {weatherData?.main.temp.toFixed(0)}&deg;F</p>}
+                {weatherData?.weather && (
+                    <img src={"http://openweathermap.org/img/wn/" + weatherData?.weather[0].icon + "@4x.png"} alt="weather image" height={100} width={100} />
                 )}
             </div>
         </div>
